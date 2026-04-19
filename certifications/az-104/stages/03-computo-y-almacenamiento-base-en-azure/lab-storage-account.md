@@ -1,0 +1,3 @@
+# lab-storage-account
+
+Placeholder.

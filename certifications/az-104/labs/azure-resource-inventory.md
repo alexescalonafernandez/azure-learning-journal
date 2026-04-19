@@ -1,0 +1,3 @@
+# azure-resource-inventory
+
+Placeholder.
