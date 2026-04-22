@@ -23,7 +23,16 @@ These notes are a practical guide to keep the lab useful while limiting avoidabl
 ### App Service Plan + App Service + Application Insights
 - **App Service Plan** can continue costing money while it exists, because it reserves compute capacity.
 - **App Service** depends on the plan; deleting the app alone may not remove plan cost.
-- **Application Insights / Log ingestion & retention** may accumulate cost with ongoing telemetry.
+- **Application Insights ingestion and retention** may accumulate cost with ongoing telemetry.
+
+### Log Analytics Workspace and diagnostics pipeline
+- **Log Analytics Workspace** can generate cost via data ingestion and retention.
+- **Diagnostic settings** control what data is sent; broad capture can increase cost quickly.
+- For labs, route only the categories needed for current exercises.
+
+### Alerting resources
+- **Alert rules** are operationally useful, but too many low-quality rules create noise.
+- Cost and operational overhead can increase when alerts are overly broad, too frequent, or tied to noisy signals.
 
 ### Storage Account (`stlabalexwe01`)
 - Storage costs are generally tied to:
@@ -35,12 +44,12 @@ These notes are a practical guide to keep the lab useful while limiting avoidabl
 ## 2) Why Cleanup Is Worth It
 
 Cleaning up resources after each stage helps you:
-- Avoid “silent” recurring costs from resources you forgot (especially compute plans and disks).
+- Avoid “silent” recurring costs from forgotten resources (especially compute plans, disks, and telemetry ingestion).
 - Keep the environment simple so the next lab starts from a clear baseline.
 - Reduce operational noise in monitoring, RBAC views, and resource lists.
 - Prevent accidental drift from the original lab design.
 
-For this lab sequence, cleanup is especially valuable after VM and App Service exercises because those resources can keep consuming budget without active use.
+For this lab path, cleanup is especially valuable after VM and App Service exercises, and after each monitoring experiment that enables extra diagnostics or alert rules.
 
 ## 3) Practical Keep-vs-Delete Guidance for This Environment
 
@@ -49,6 +58,8 @@ For this lab sequence, cleanup is especially valuable after VM and App Service e
 - `snet-core-default`
 - `nsg-lab-core-we-01`
 - `stlabalexwe01` (plus blob container and file share if still useful)
+- Log Analytics Workspace (while monitoring labs continue)
+- Only active, meaningful alert rules
 
 ### Delete when done
 - Linux lab VM (already deallocated)
@@ -56,6 +67,8 @@ For this lab sequence, cleanup is especially valuable after VM and App Service e
 - Lab App Service Plan
 - Lab App Service
 - Associated Application Insights
+- Unused alert rules/action groups created for one-off tests
+- Diagnostic settings no longer needed for active labs
 
 ## 4) Lab Hygiene Best Practices (to Avoid Unnecessary Spend)
 
@@ -67,20 +80,23 @@ For this lab sequence, cleanup is especially valuable after VM and App Service e
    - VM and any paid hosting plans should not stay running between sessions.
 4. **Delete dependent resources in the same session**
    - When removing a VM, also verify NIC/public IP/disks are gone.
-5. **Review Cost Analysis regularly**
+5. **Control telemetry scope intentionally**
+   - Enable only the logs/metrics needed for the learning objective.
+6. **Review Cost Analysis regularly**
    - Quick weekly check helps catch forgotten resources early.
-6. **Keep reusable core infrastructure, remove ephemeral workloads**
+7. **Keep reusable core infrastructure, remove ephemeral workloads**
    - Keep network/storage foundations; remove temporary compute/app resources.
-7. **Prefer one active lab path at a time**
+8. **Prefer one active lab path at a time**
    - Finish, document, and clean one stage before launching many parallel experiments.
 
 ## 5) Suggested Lightweight Cleanup Routine
 
 After each lab session:
 1. Open resource group `rg-lab-azurefundamentals-we-01`.
-2. Identify resources created “today” for the exercise.
+2. Identify resources created or modified during that session.
 3. Deallocate or delete compute-oriented resources first.
-4. Confirm only baseline reusable resources remain.
-5. Add a short note in your journal with what was kept vs deleted.
+4. Review diagnostics and alert rules enabled for short-lived tests.
+5. Confirm only baseline reusable resources remain.
+6. Add a short note in your journal with what was kept vs deleted.
 
 This routine keeps your AZ-104 environment predictable, reusable, and cost-aware without slowing down hands-on practice.
