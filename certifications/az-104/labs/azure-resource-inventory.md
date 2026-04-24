@@ -1,6 +1,6 @@
-# Azure Resource Inventory (Stages 2–5)
+# Azure Resource Inventory (Stages 2–6)
 
-This inventory summarizes the Azure resources created during the AZ-104 lab work across stages 2, 3, 4, and 5.
+This inventory summarizes the Azure resources created during the AZ-104 lab work across stages 2, 3, 4, 5, and 6.
 
 ## Lab Scope
 
@@ -24,6 +24,7 @@ This inventory summarizes the Azure resources created during the AZ-104 lab work
 | Log Analytics Workspace (lab scope) | Log Analytics Workspace | Centralized analysis target for selected diagnostic and operational signals across resources. | Stage 5 | **Active. Keep for next stage.** Useful for cross-resource troubleshooting exercises. |
 | Basic alert rules (VM/App Service oriented) | Azure Monitor Alert Rules | Early-warning rules for practical monitoring drills (e.g., CPU/HTTP or failure-oriented thresholds). | Stage 5 | **Active. Keep and tune.** Remove noisy or unused rules to avoid alert fatigue and unnecessary processing. |
 | `stlabalexwe01` | Storage Account | General-purpose storage for blob/file services and storage feature labs. | Stage 4 | **Active. Keep.** Reusable, low-friction resource for continued storage practice. |
+| Bicep-deployed Storage Account (name intentionally unique per deployment) | Storage Account | First declarative IaC deployment practice using Bicep + Azure CLI (`validate` and `create`). | Stage 6 | **Created and verified during lab.** Keep only if still needed for upcoming automation labs; otherwise delete to avoid unnecessary storage costs. |
 | Lab Blob container (inside `stlabalexwe01`) | Blob Container | Object storage exercises (upload/download, access levels, lifecycle basics). | Stage 4 | **Active. Keep.** Helpful for ongoing blob-related tasks. |
 | Lab File share (inside `stlabalexwe01`) | Azure Files share | SMB/NFS-style managed file share comparison with blob storage. | Stage 4 | **Active. Keep.** Useful for file service and identity/access experiments. |
 
