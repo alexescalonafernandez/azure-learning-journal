@@ -1,6 +1,6 @@
 # Cleanup and Cost Notes (AZ-104 Labs)
 
-These notes are a practical guide to keep the lab useful while limiting avoidable Azure spend.
+These notes are a practical guide to keep the lab useful while limiting avoidable Azure spend, including initial automation/IaC practice from Stage 6.
 
 ## 1) Basic Cost Mental Model by Resource Type
 
@@ -34,7 +34,7 @@ These notes are a practical guide to keep the lab useful while limiting avoidabl
 - **Alert rules** are operationally useful, but too many low-quality rules create noise.
 - Cost and operational overhead can increase when alerts are overly broad, too frequent, or tied to noisy signals.
 
-### Storage Account (`stlabalexwe01`)
+### Storage Accounts (`stlabalexwe01` + Stage 6 Bicep-created account)
 - Storage costs are generally tied to:
   - Data volume stored (Blob/File)
   - Transactions/operations
@@ -58,6 +58,7 @@ For this lab path, cleanup is especially valuable after VM and App Service exerc
 - `snet-core-default`
 - `nsg-lab-core-we-01`
 - `stlabalexwe01` (plus blob container and file share if still useful)
+- The Stage 6 Bicep-created Storage Account only if it will be reused in next automation labs
 - Log Analytics Workspace (while monitoring labs continue)
 - Only active, meaningful alert rules
 
@@ -100,3 +101,10 @@ After each lab session:
 6. Add a short note in your journal with what was kept vs deleted.
 
 This routine keeps your AZ-104 environment predictable, reusable, and cost-aware without slowing down hands-on practice.
+
+## 6) Stage 6-Specific Cleanup Notes
+
+- Remove temporary Bicep test resources after verification if they are not part of a planned follow-up lab.
+- Keep only meaningful tags applied during CLI/Bicep exercises; remove noisy or inconsistent test tags.
+- If repeating Bicep deployments for practice, prefer one controlled test resource instead of creating many one-off accounts.
+- Continue using `validate`/`what-if` before `create` to reduce accidental drift and unnecessary resource churn.
